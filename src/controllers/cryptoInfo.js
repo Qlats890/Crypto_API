@@ -4,11 +4,12 @@ const cheerio = require("cheerio");
 class CryptoInfoController {
   static async getTopCrypto(req, res) {
     const topNumber = req.query.top || 10;
-    if (topNumber > 11) {
+    if (topNumber >= 11) {
       res.status(400).json({
         data: "400 - Input the Data Less then 10",
       });
     } else {
+      console.log(topNumber);
       try {
         const url = process.env.URL_SCRAP;
         const { data } = await axios({
