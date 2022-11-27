@@ -3,20 +3,23 @@ const cheerio = require("cheerio");
 
 class CryptoInfoController {
   static async getTopCrypto(req, res) {
-    const topNumber = req.query.top || 10;
+    const topNumber = Number(req.query.top) || 10;
+    //TODO: If input top is more then 11, then give error
     if (topNumber >= 11) {
       res.status(400).json({
         data: "400 - Input the Data Less then 10",
       });
     } else {
-      console.log(topNumber);
+      // console.log(topNumber);
       try {
+        //TODO: Take a html from url ehe ~
         const url = process.env.URL_SCRAP;
         const { data } = await axios({
           method: "GET",
           url: url,
         });
         // console.log(data);
+        //TODO: Take the selector
         const $ = cheerio.load(data);
         const elemSelect =
           "#__next > div > div.main-content > div.sc-1a736df3-0.PimrZ.cmc-body-wrapper > div > div:nth-child(1) > div.sc-f7a61dda-2.efhsPu > table > tbody > tr";
